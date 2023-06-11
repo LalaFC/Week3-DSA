@@ -1,17 +1,30 @@
 ﻿using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
-using System.Transactions;
-using Week3_DSA;
 
-namespace ConsoleApp2
+namespace Week3_DSA
 {
-    internal class Login
+    internal class Program
     {
         static void Main(string[] args) //Main Program
         {
+            Login newUser = new Login();
+            newUser.LoginScreen();
+        }
+
+
+    }
+
+    internal class Login
+    {
+        internal void LoginScreen()
+        {
+            Console.Clear();
+            Console.WriteLine("Press Any Key to Order.");
+            Console.ReadKey();
+
+            Console.Clear();
             Menu Menu = new Menu(); //Create new Menu instance
-            TransactionRecord record = new TransactionRecord();//Starts a New List of Transactions
 
             int loginAttempts = 0; //Initialize login attempts
             const string defaultUsername = "user"; //Sets default Username
@@ -51,54 +64,5 @@ namespace ConsoleApp2
         {
             return username == defaultUsername && password == defaultPassword;
         }
-
     }
-
-    /*
-    public static class PrintExtensions
-    {
-        public static T[] Append<T>(this T[] array, T item)
-        {
-            return new List<T>(array) { item }.ToArray();
-        }
-    }
-    internal class DisplayReceipt
-    {
-        static void Print(Dictionary<string, int> order)
-        {
-            string folderLocation = @"C:\Users\MSI\Desktop\";
-            string fileName = "receipt.txt";
-            string fullPath = folderLocation + fileName;
-
-            // An array of strings
-            string[] receipt =
-                {
-                "**************************************",
-                "                                      ",
-                "          A2 Psych Ward Cafe          ",
-                "           Official Receipt           ",
-                "                                      ",
-                "**************************************",
-                "                                      "
-             };
-            var values = order.Values.ToArray();
-            String.Join(", ", values);
-
-            receipt = receipt.CopyTo(values).ToArray();
-            //Add Other Strings Here
-
-            File.WriteAllLines(fullPath, receipt);
-
-            var fileToOpen = fullPath;
-            var process = new Process();
-            process.StartInfo = new ProcessStartInfo()
-            {
-                UseShellExecute = true,
-                FileName = fileToOpen
-            };
-
-            process.Start();
-            process.WaitForExit();
-        }
-    }*/
 }

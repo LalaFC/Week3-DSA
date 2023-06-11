@@ -23,6 +23,8 @@ namespace Week3_DSA
                 TransactionRecord record = new TransactionRecord();
                 record.AddNew(Order);
                 record.ShowAll();
+                DisplayReceipt receipt = new DisplayReceipt();
+                receipt.Print(Order);
                 Console.ReadKey();
             }
             else
