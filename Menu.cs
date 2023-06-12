@@ -67,6 +67,7 @@ namespace Week3_DSA
             string prompt = "Enter your choice: ";
             string quantityPrompt = "Enter the quantity: ";
             string anykeyContinue = "Press Any Key to Continue";
+            string invalidInput = "Invalid Input. PLease Enter a Number";
             string Space = " ";
 
 
@@ -81,12 +82,29 @@ namespace Week3_DSA
                 Console.WriteLine(menuItem);
             }
 
-            Console.WriteLine(); 
+            Console.WriteLine();
 
             int promptLeftPadding = (consoleWidth - prompt.Length) / 2;
             Console.SetCursorPosition(promptLeftPadding, Console.CursorTop);
             Console.Write(prompt);
-            int choice = int.Parse(Console.ReadLine());
+
+            int choice;
+
+            
+            while (!int.TryParse(Console.ReadLine(), out choice))
+            {
+                int errorLeftPadding = (consoleWidth - invalidInput.Length) / 2;
+                Console.SetCursorPosition(errorLeftPadding, Console.CursorTop);
+                Console.WriteLine(invalidInput);
+               
+                Console.SetCursorPosition(promptLeftPadding, Console.CursorTop);
+                Console.Write(prompt);
+
+            }
+           
+
+
+
 
             Console.SetCursorPosition(promptLeftPadding, Console.CursorTop);
             Console.Write(quantityPrompt);
