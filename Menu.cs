@@ -66,7 +66,6 @@ namespace Week3_DSA
             };
             string prompt = "Enter your choice: ";
             string quantityPrompt = "Enter the quantity: ";
-            string anykeyContinue = "Press Any Key to Continue";
             string invalidInput = "Invalid Input. PLease Enter a Number";
             string Space = " ";
 
@@ -145,7 +144,6 @@ namespace Week3_DSA
             };
             string prompt = "Enter your choice: ";
             string quantityPrompt = "Enter the quantity: ";
-            string anykeyContinue = "Press Any Key to Continue";
             string Space = " ";
 
 
@@ -199,7 +197,6 @@ namespace Week3_DSA
             };
             string prompt = "Enter your choice: ";
             string quantityPrompt = "Enter the quantity: ";
-            string anykeyContinue = "Press Any Key to Continue";
             string Space = " ";
 
 
