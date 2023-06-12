@@ -36,9 +36,9 @@ namespace Week3_DSA
                 receipt = receipt.Append("\t" + item.Name + "\t\t" + item.price + " PHP");
             }
             receipt = receipt.Append("                                      ");
-            receipt = receipt.Append(" Total Amount: " + Order.Total);
-            receipt = receipt.Append(" Amount Received: " + GivenAmount);
-            receipt = receipt.Append(" Change: " + (GivenAmount-Order.Total));
+            receipt = receipt.Append(" Total Amount: " + Order.Total + " PHP");
+            receipt = receipt.Append(" Amount Received: " + GivenAmount + " PHP");
+            receipt = receipt.Append(" Change: " + (GivenAmount - Order.Total) + " PHP");
             receipt = receipt.Append("                                      ");
             receipt = receipt.Append(" Thank you for buying @ A2 Psych Ward Cafe. Please come again. ");
             receipt = receipt.Append(" Ref #: " + Order.refNum);
@@ -53,9 +53,14 @@ namespace Week3_DSA
                 UseShellExecute = true,
                 FileName = fileToOpen
             };
-
+            
             process.Start();
             process.WaitForExit();
+            ProgramLoop();
+
+        }
+        void ProgramLoop()
+        {
             Console.Write("Would you like to order again? ");
             string choice = Console.ReadLine();
             if (choice.ToLower() == "y")
@@ -70,7 +75,9 @@ namespace Week3_DSA
             }
             else
             {
-                Console.WriteLine("Invalid choice.");
+                Prompts.CenterPrompt(Prompts.invalidInput);
+                Prompts.ContinueKey();
+                ProgramLoop();
             }
         }
     }

@@ -9,22 +9,21 @@ namespace Week3_DSA
 {
     internal class Menu
     {
-        Transaction Order = new Transaction(); //Creates a New Transaction
-
-        Payment Payment = new Payment();
+        Transaction Order = new(); //Creates a New Transaction
+        Payment Payment = new(); //Calls Payment Class
 
         internal void ShowMenu()
         {
             Console.Clear();
-            Console.WriteLine("Welcome to the ordering system!");
-            Console.WriteLine("Please select an option:");
-            Console.WriteLine("1. Pizza");
-            Console.WriteLine("2. Desserts");
-            Console.WriteLine("3. Drinks");
-            Console.WriteLine("4. Confirm Order");
-            Console.WriteLine("0. Exit");
-            Console.WriteLine(" ");
-            Console.Write("Input: ");
+            Console.WriteLine( "Welcome to the ordering system! \n" +
+                                "Please select an option \n" +
+                                "1. Pizza\n" +
+                                "2. Desserts\n" +
+                                "3. Drinks\n" +
+                                "4. Confirm Order\n" +
+                                "0. Exit\n");
+
+            Console.Write("Enter the Item NUMBER: ");
 
             int choice = int.Parse(Console.ReadLine());
 
@@ -46,259 +45,175 @@ namespace Week3_DSA
                     ConfirmOrder();
                     break;
                 default:
-                    Console.WriteLine("Invalid choice. Exiting the program.");
+                    Prompts.CenterPrompt(Prompts.invalidInput);
+                    Prompts.ContinueKey();
+                    ShowMenu();
                     break;
+            }
+        }
+        internal void GetQuantity(out int quantity) //Method to get Quantity
+        {
+            while (!int.TryParse(Console.ReadLine(), out quantity))
+            {
+                Prompts.CenterPrompt(Prompts.invalidInput);
+                Prompts.ContinueKey();
+                ShowPizzaMenu();
             }
         }
 
         internal void ShowPizzaMenu()
         {
             Console.Clear();
-            string[] menuItems = {
-        "Pizza Menu",
-        "",
-        "1. Pepperoni",
-        "2. Ham and Cheese",
-        "3. Hawaiian",
-        "0. Back" 
-            
+            string[] menuItems = 
+            {
+                "Pizza Menu",
+                "",
+                "1. Pepperoni",
+                "2. Ham and Cheese",
+                "3. Hawaiian",
+                "0. Back" 
             };
-            string prompt = "Enter your choice: ";
-            string quantityPrompt = "Enter the quantity: ";
-            string anykeyContinue = "Press Any Key to Continue";
-            string invalidInput = "Invalid Input. Please Enter a Number";
-
-            int consoleWidth = Console.WindowWidth;
-
-            Console.WriteLine("Pizza Menu");
 
             foreach (string menuItem in menuItems)
             {
-                int leftPadding = (consoleWidth - menuItem.Length) / 2;
-                Console.SetCursorPosition(leftPadding, Console.CursorTop);
-                Console.WriteLine(menuItem);
+                Prompts.CenterText(menuItem);
             }
 
-            Console.WriteLine();
-
-            int promptLeftPadding = (consoleWidth - prompt.Length) / 2;
-            Console.SetCursorPosition(promptLeftPadding, Console.CursorTop);
-            Console.Write(prompt);
+            Prompts.CenterPrompt(Prompts.Choice);
 
             int choice;
          
             while (!int.TryParse(Console.ReadLine(), out choice))
             {
-                int errorLeftPadding = (consoleWidth - invalidInput.Length) / 2;
-                Console.SetCursorPosition(errorLeftPadding, Console.CursorTop);
-                Console.WriteLine(invalidInput);
-               
-                Console.SetCursorPosition(promptLeftPadding, Console.CursorTop);
-                Console.Write(anykeyContinue);
-                Console.ReadKey();
-                ShowPizzaMenu();
-
+                Prompts.CenterPrompt(Prompts.invalidInput);
+                Prompts.ContinueKey();
+                ShowPizzaMenu();                
             }
 
-            Console.SetCursorPosition(promptLeftPadding, Console.CursorTop);
-            Console.Write(quantityPrompt);
-
+            Prompts.CenterPrompt(Prompts.Quantity);
             int quantity;
-
-            while (!int.TryParse(Console.ReadLine(), out quantity))
-            {
-                int errorLeftPadding = (consoleWidth - invalidInput.Length) / 2;
-                Console.SetCursorPosition(errorLeftPadding, Console.CursorTop);
-                Console.WriteLine(invalidInput);
-
-                Console.SetCursorPosition(promptLeftPadding, Console.CursorTop);
-                Console.Write(anykeyContinue);
-                Console.ReadKey();
-                ShowPizzaMenu();
-
-            }
-
-
             switch (choice)
             {
                 case 0:
                     ShowMenu();
                     break;
                 case 1:
+                    GetQuantity(out quantity);
                     AddToOrder("Pepperoni", quantity, 399);
                     break;
                 case 2:
+                    GetQuantity(out quantity);
                     AddToOrder("Ham and Cheese", quantity, 399);
                     break;
                 case 3:
+                    GetQuantity(out quantity);
                     AddToOrder("Hawaiian", quantity, 399);
                     break;
                 default:
-                    Console.WriteLine("Invalid choice. Please try again.");
+                    Prompts.CenterPrompt(Prompts.invalidInput);
                     ShowPizzaMenu();
                     break;
             }
-
+            ShowPizzaMenu();
         }
         internal void ShowDessertMenu()
         {
             Console.Clear();
-            string[] menuItems = {
-        "Dessert Menu",
-        " ",
-        "1. Halo - Halo (45 PHP)",
-        "2. Ice Cream (25 PHP)",
-        "0. Back"
-
-            };
-            string prompt = "Enter your choice: ";
-            string quantityPrompt = "Enter the quantity: ";
-            string anykeyContinue = "Press Any Key to Continue";
-            string invalidInput = "Invalid Input. Please Enter a Number";
-
-
-            int consoleWidth = Console.WindowWidth;
-
-            Console.WriteLine("Pizza Menu");
+            string[] menuItems = 
+                {
+                    "Dessert Menu",
+                    " ",
+                    "1. Halo - Halo (45 PHP)",
+                    "2. Ice Cream (25 PHP)",
+                    "0. Back"
+                };
 
             foreach (string menuItem in menuItems)
             {
-                int leftPadding = (consoleWidth - menuItem.Length) / 2;
-                Console.SetCursorPosition(leftPadding, Console.CursorTop);
-                Console.WriteLine(menuItem);
+                Prompts.CenterText(menuItem);
             }
 
-            Console.WriteLine();
-
-            int promptLeftPadding = (consoleWidth - prompt.Length) / 2;
-            Console.SetCursorPosition(promptLeftPadding, Console.CursorTop);
-            Console.Write(prompt);
-            
+            Prompts.CenterPrompt(Prompts.Choice);
             int choice;
-
             while (!int.TryParse(Console.ReadLine(), out choice))
             {
-                int errorLeftPadding = (consoleWidth - invalidInput.Length) / 2;
-                Console.SetCursorPosition(errorLeftPadding, Console.CursorTop);
-                Console.WriteLine(invalidInput);
-
-                Console.SetCursorPosition(promptLeftPadding, Console.CursorTop);
-                Console.Write(anykeyContinue);
-                Console.ReadKey();
+                Prompts.CenterPrompt(Prompts.invalidInput);
+                Prompts.ContinueKey();
                 ShowDessertMenu();
             }
 
-            Console.SetCursorPosition(promptLeftPadding, Console.CursorTop);
-            Console.Write(quantityPrompt);
-
+            Prompts.CenterPrompt(Prompts.Quantity);
             int quantity;
-
-            while (!int.TryParse(Console.ReadLine(), out quantity))
-            {
-                int errorLeftPadding = (consoleWidth - invalidInput.Length) / 2;
-                Console.SetCursorPosition(errorLeftPadding, Console.CursorTop);
-                Console.WriteLine(invalidInput);
-
-                Console.SetCursorPosition(promptLeftPadding, Console.CursorTop);
-                Console.Write(anykeyContinue);
-                Console.ReadKey();
-                ShowDessertMenu();
-            }
-
             switch (choice)
             {
+                case 0:
+                    ShowMenu();
+                    break;
                 case 1:
+                    GetQuantity(out quantity);
                     AddToOrder("Halo-halo", quantity, 45);
                     break;
                 case 2:
+                    GetQuantity(out quantity);
                     AddToOrder("Ice Cream", quantity, 25);
                     break;
                 default:
-                    Console.WriteLine("Invalid choice.");
+                    Prompts.CenterPrompt(Prompts.invalidInput);
+                    ShowDessertMenu();
                     break;
             }
+            ShowDessertMenu();
         }
 
         internal void ShowDrinkMenu()
         {
             Console.Clear();
-            string[] menuItems = {
-        "Drink Menu",
-        " ",
-        "1. Coke (25 PHP)",
-        "2. Sprite (25 PHP)",
-        "0. Back"
-
-            };
-            string prompt = "Enter your choice: ";
-            string quantityPrompt = "Enter the quantity: ";
-            string anykeyContinue = "Press Any Key to Continue";
-            string invalidInput = "Invalid Input. Please Enter a Number";
-
-
-            int consoleWidth = Console.WindowWidth;
-
-            Console.WriteLine("Pizza Menu");
+            string[] menuItems = 
+                {
+                    "Drink Menu",
+                    " ",
+                    "1. Coke (25 PHP)",
+                    "2. Sprite (25 PHP)",
+                    "0. Back"
+                };
 
             foreach (string menuItem in menuItems)
             {
-                int leftPadding = (consoleWidth - menuItem.Length) / 2;
-                Console.SetCursorPosition(leftPadding, Console.CursorTop);
-                Console.WriteLine(menuItem);
+                Prompts.CenterText(menuItem);
             }
 
-            Console.WriteLine();
-
-            int promptLeftPadding = (consoleWidth - prompt.Length) / 2;
-            Console.SetCursorPosition(promptLeftPadding, Console.CursorTop);
-            Console.Write(prompt);
-
+            Prompts.CenterPrompt(Prompts.Choice);
             int choice;
-
             while (!int.TryParse(Console.ReadLine(), out choice))
             {
-                int errorLeftPadding = (consoleWidth - invalidInput.Length) / 2;
-                Console.SetCursorPosition(errorLeftPadding, Console.CursorTop);
-                Console.WriteLine(invalidInput);
-
-                Console.SetCursorPosition(promptLeftPadding, Console.CursorTop);
-                Console.Write(anykeyContinue);
-                Console.ReadKey();
+                Prompts.CenterPrompt(Prompts.invalidInput);
+                Prompts.ContinueKey();
                 ShowDrinkMenu();
             }
-
-            Console.SetCursorPosition(promptLeftPadding, Console.CursorTop);
-            Console.Write(quantityPrompt);
-
+            Prompts.CenterPrompt(Prompts.Quantity);
             int quantity;
-
-            while (!int.TryParse(Console.ReadLine(), out quantity))
-            {
-                int errorLeftPadding = (consoleWidth - invalidInput.Length) / 2;
-                Console.SetCursorPosition(errorLeftPadding, Console.CursorTop);
-                Console.WriteLine(invalidInput);
-
-                Console.SetCursorPosition(promptLeftPadding, Console.CursorTop);
-                Console.Write(anykeyContinue);
-                Console.ReadKey();
-                ShowDrinkMenu();
-            }
-
-
             switch (choice)
             {
+                case 0:
+                    ShowMenu();
+                    break;
                 case 1:
+                    GetQuantity(out quantity);
                     AddToOrder("Coke", quantity, 25);
                     break;
                 case 2:
+                    GetQuantity(out quantity);
                     AddToOrder("Sprite", quantity, 25);
                     break;
                 default:
-                    Console.WriteLine("Invalid choice. Exiting the program.");
+                    Prompts.CenterPrompt(Prompts.invalidInput);
+                    ShowDrinkMenu();
                     break;
             }
+            ShowDrinkMenu();
         }
 
+        //Method to ADD ORDER
         internal void AddToOrder(string itemName, int quantity, int price)
         {
             for (int added = 0; added < quantity; added++) 
@@ -312,19 +227,21 @@ namespace Week3_DSA
             }
 
             Order.Total += (price * quantity); //Adds item price to the total amount
-            Console.WriteLine($"{quantity} {itemName}(s) added to your order. \n Press Any Key to Continue");
+            Console.WriteLine($"{quantity} {itemName}(s) added to your order.");
+            Prompts.ContinueKey();
             Console.ReadKey();
-            ShowMenu();
         }
 
+        //method to CONFIRM ORDER
         internal void ConfirmOrder()
         {
+            Console.Clear();
             Console.WriteLine("Your Order:");
             Console.WriteLine("------------");
 
             foreach (var item in Order.orders)
             {
-                Console.WriteLine(Order.orders.IndexOf(item) + ". " + item.Name + "\t\t" + item.price + " PHP");
+                Console.WriteLine(Order.orders.IndexOf(item) + ". " + item.Name + "\t\t\t\t" + item.price + " PHP");
             }
 
             Console.WriteLine("------------");
@@ -348,16 +265,18 @@ namespace Week3_DSA
             }
             else
             {
-                Console.WriteLine("Invalid choice.");
+                Prompts.CenterPrompt(Prompts.invalidInput);
+                Prompts.ContinueKey();
+                ConfirmOrder();
             }
         }
+        //Method to AUTO-GENERATE ORDER NUMBER and Get DATE
         internal void GenerateOrderNumber() //Method to Get Order Number
         {
             Random rnd = new Random();
             Order.OrderNumber = rnd.Next(10, 999); //Randomly Generated 6 digit number
             Order.date = DateTime.Now;
             TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Order.date, "Singapore Standard Time");
-
         }
     }
 }

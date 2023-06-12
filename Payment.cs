@@ -40,6 +40,7 @@ namespace Week3_DSA
             else
             {
                 Console.WriteLine("Amount paid is less than the order amount. Please try again.");
+                Prompts.ContinueKey();
                 ProcessCashPayment(Order);
             }
         }
