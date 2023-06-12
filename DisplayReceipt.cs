@@ -47,7 +47,7 @@ namespace Week3_DSA
             File.WriteAllLines(fullPath, receipt);
 
             var fileToOpen = fullPath;
-            var process = new Process();
+            Process process = new();
             process.StartInfo = new ProcessStartInfo()
             {
                 UseShellExecute = true,
@@ -70,8 +70,7 @@ namespace Week3_DSA
             }
             else if (choice.ToLower() == "n")
             {
-                Login restart = new Login();
-                restart.LoginScreen();
+                Login.LoginScreen();
             }
             else
             {

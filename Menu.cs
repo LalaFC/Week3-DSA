@@ -4,13 +4,14 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Week3_DSA
 {
     internal class Menu
     {
-        Transaction Order = new(); //Creates a New Transaction
-        Payment Payment = new(); //Calls Payment Class
+        private Transaction Order = new(); //Creates a New Transaction
+        private Payment Payment = new(); //Calls Payment Class
 
         internal void ShowMenu()
         {
@@ -56,8 +57,12 @@ namespace Week3_DSA
             while (!int.TryParse(Console.ReadLine(), out quantity))
             {
                 Prompts.CenterPrompt(Prompts.invalidInput);
-                Prompts.ContinueKey();
-                ShowPizzaMenu();
+            //Clears Input Area
+                Console.SetCursorPosition(((Console.WindowWidth- Prompts.invalidInput.Length)/2), Console.CursorTop - 1);
+                Prompts.CenterText("                                                                                ");
+                Console.SetCursorPosition(((Console.WindowWidth - Prompts.invalidInput.Length) / 2), Console.CursorTop - 1);
+            //Prompts User Again
+                Prompts.CenterPrompt(Prompts.Quantity);
             }
         }
 
@@ -227,7 +232,7 @@ namespace Week3_DSA
             }
 
             Order.Total += (price * quantity); //Adds item price to the total amount
-            Console.WriteLine($"{quantity} {itemName}(s) added to your order.");
+            Prompts.CenterText($"{quantity} {itemName}(s) added to your order.");
             Prompts.ContinueKey();
             Console.ReadKey();
         }
@@ -273,7 +278,7 @@ namespace Week3_DSA
         //Method to AUTO-GENERATE ORDER NUMBER and Get DATE
         internal void GenerateOrderNumber() //Method to Get Order Number
         {
-            Random rnd = new Random();
+            Random rnd = new();
             Order.OrderNumber = rnd.Next(10, 999); //Randomly Generated 6 digit number
             Order.date = DateTime.Now;
             TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Order.date, "Singapore Standard Time");

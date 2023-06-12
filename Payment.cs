@@ -30,10 +30,10 @@ namespace Week3_DSA
                 decimal changeAmount = amountPaid - Order.Total;
                 Console.WriteLine($"Payment successful! Change amount: {changeAmount}");
                 Order.refNum = GenerateReferenceNumber();
-                TransactionRecord record = new TransactionRecord();
+                TransactionRecord record = new();
                 record.AddNew(Order);
                 record.ShowAll();
-                DisplayReceipt receipt = new DisplayReceipt();
+                DisplayReceipt receipt = new();
                 receipt.Print(Order, amountPaid);
                 Console.ReadKey();
             }
@@ -47,7 +47,7 @@ namespace Week3_DSA
 
         internal int GenerateReferenceNumber()
         {
-            Random rnd = new Random();
+            Random rnd = new();
             int TransactionNumber = rnd.Next(100000, 999999); //Randomly Generated 6 digit number
             return TransactionNumber;
         }

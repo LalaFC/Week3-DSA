@@ -11,7 +11,7 @@ namespace Week3_DSA
         internal const string Choice = "Enter your choice: ";
         internal const string Quantity = "Enter the quantity: ";
         internal const string anykeyContinue = "Press Any Key to Continue. ";
-        internal const string invalidInput = "Invalid Input. Please Enter Numbers Only. ";
+        internal const string invalidInput = "Please Enter Numbers Only. ";
         internal static void ContinueKey()
         {
             int leftPadding = (Console.WindowWidth - anykeyContinue.Length) / 2;

@@ -8,8 +8,7 @@ namespace Week3_DSA
     {
         static void Main(string[] args) //Main Program
         {
-            Login newUser = new Login();
-            newUser.LoginScreen();
+            Login.LoginScreen();
         }
 
 
@@ -17,14 +16,14 @@ namespace Week3_DSA
 
     internal class Login
     {
-        internal void LoginScreen()
+        internal static void LoginScreen()
         {
             Console.Clear();
             Prompts.ContinueKey();
             Console.ReadKey();
 
             Console.Clear();
-            Menu Menu = new Menu(); //Create new Menu instance
+            Menu Menu = new(); //Create new Menu instance
 
             int loginAttempts = 0; //Initialize login attempts
             const string defaultUsername = "user"; //Sets default Username
