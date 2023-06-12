@@ -23,6 +23,9 @@ namespace Week3_DSA
             Console.WriteLine("3. Drinks");
             Console.WriteLine("4. Confirm Order");
             Console.WriteLine("0. Exit");
+            Console.WriteLine(" ");
+            Console.Write("Input: ");
+
 
             int choice = int.Parse(Console.ReadLine());
 
@@ -52,16 +55,43 @@ namespace Week3_DSA
         internal void ShowPizzaMenu()
         {
             Console.Clear();
+            string[] menuItems = {
+        "Pizza Menu",
+        "",
+        "1. Pepperoni",
+        "2. Ham and Cheese",
+        "3. Hawaiian",
+        "0. Back" 
+            
+            };
+            string prompt = "Enter your choice: ";
+            string quantityPrompt = "Enter the quantity: ";
+            string anykeyContinue = "Press Any Key to Continue";
+            string Space = " ";
+
+
+            int consoleWidth = Console.WindowWidth;
+
             Console.WriteLine("Pizza Menu");
-            Console.WriteLine("1. Pepperoni");
-            Console.WriteLine("2. Ham and Cheese");
-            Console.WriteLine("3. Hawaiian");
-            Console.WriteLine("0. Back");
-            Console.WriteLine("Enter your choice: ");
+
+            foreach (string menuItem in menuItems)
+            {
+                int leftPadding = (consoleWidth - menuItem.Length) / 2;
+                Console.SetCursorPosition(leftPadding, Console.CursorTop);
+                Console.WriteLine(menuItem);
+            }
+
+            Console.WriteLine(); 
+
+            int promptLeftPadding = (consoleWidth - prompt.Length) / 2;
+            Console.SetCursorPosition(promptLeftPadding, Console.CursorTop);
+            Console.Write(prompt);
             int choice = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Enter the quantity: ");
+            Console.SetCursorPosition(promptLeftPadding, Console.CursorTop);
+            Console.Write(quantityPrompt);
             int quantity = int.Parse(Console.ReadLine());
+            Console.WriteLine(Space);
 
             switch (choice)
             {
@@ -72,10 +102,10 @@ namespace Week3_DSA
                     AddToOrder("Pepperoni", quantity, 399);
                     break;
                 case 2:
-                    AddToOrder("Hawaiian", quantity, 399);
+                    AddToOrder("Ham and Cheese", quantity, 399);
                     break;
                 case 3:
-                    AddToOrder("Ham and Cheese", quantity, 399);
+                    AddToOrder("Hawaiian", quantity, 399);
                     break;
                 default:
                     Console.WriteLine("Invalid choice. Please try again.");
@@ -87,15 +117,42 @@ namespace Week3_DSA
         internal void ShowDessertMenu()
         {
             Console.Clear();
-            Console.WriteLine("Dessert Menu");
-            Console.WriteLine("1. Halo-halo (45 PHP)");
-            Console.WriteLine("2. Ice Cream (25 PHP)");
-            Console.WriteLine("0. Back");
+            string[] menuItems = {
+        "Dessert Menu",
+        " ",
+        "1. Halo - Halo (45 PHP)",
+        "2. Ice Cream (25 PHP)",
+        "0. Back"
 
+            };
+            string prompt = "Enter your choice: ";
+            string quantityPrompt = "Enter the quantity: ";
+            string anykeyContinue = "Press Any Key to Continue";
+            string Space = " ";
+
+
+            int consoleWidth = Console.WindowWidth;
+
+            Console.WriteLine("Pizza Menu");
+
+            foreach (string menuItem in menuItems)
+            {
+                int leftPadding = (consoleWidth - menuItem.Length) / 2;
+                Console.SetCursorPosition(leftPadding, Console.CursorTop);
+                Console.WriteLine(menuItem);
+            }
+
+            Console.WriteLine();
+
+            int promptLeftPadding = (consoleWidth - prompt.Length) / 2;
+            Console.SetCursorPosition(promptLeftPadding, Console.CursorTop);
+            Console.Write(prompt);
             int choice = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Enter the quantity: ");
+            Console.SetCursorPosition(promptLeftPadding, Console.CursorTop);
+            Console.Write(quantityPrompt);
             int quantity = int.Parse(Console.ReadLine());
+            Console.WriteLine(Space);
 
             switch (choice)
             {
@@ -114,15 +171,42 @@ namespace Week3_DSA
         internal void ShowDrinkMenu()
         {
             Console.Clear();
-            Console.WriteLine("Drink Menu");
-            Console.WriteLine("1. Coke (25 PHP)");
-            Console.WriteLine("2. Sprite (25 PHP)");
-            Console.WriteLine("0. Back");
+            string[] menuItems = {
+        "Drink Menu",
+        " ",
+        "1. Coke (25 PHP)",
+        "2. Sprite (25 PHP)",
+        "0. Back"
 
+            };
+            string prompt = "Enter your choice: ";
+            string quantityPrompt = "Enter the quantity: ";
+            string anykeyContinue = "Press Any Key to Continue";
+            string Space = " ";
+
+
+            int consoleWidth = Console.WindowWidth;
+
+            Console.WriteLine("Pizza Menu");
+
+            foreach (string menuItem in menuItems)
+            {
+                int leftPadding = (consoleWidth - menuItem.Length) / 2;
+                Console.SetCursorPosition(leftPadding, Console.CursorTop);
+                Console.WriteLine(menuItem);
+            }
+
+            Console.WriteLine();
+
+            int promptLeftPadding = (consoleWidth - prompt.Length) / 2;
+            Console.SetCursorPosition(promptLeftPadding, Console.CursorTop);
+            Console.Write(prompt);
             int choice = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Enter the quantity: ");
+            Console.SetCursorPosition(promptLeftPadding, Console.CursorTop);
+            Console.Write(quantityPrompt);
             int quantity = int.Parse(Console.ReadLine());
+            Console.WriteLine(Space);
 
             switch (choice)
             {
@@ -151,7 +235,7 @@ namespace Week3_DSA
             }
 
             Order.Total += (price * quantity); //Adds item price to the total amount
-            Console.WriteLine($"{quantity} {itemName}(s) added to your order.");
+            Console.WriteLine($"{quantity} {itemName}(s) added to your order. \n Press Any Key to Continue");
             Console.ReadKey();
             ShowMenu();
         }
