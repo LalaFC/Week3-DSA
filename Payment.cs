@@ -10,11 +10,21 @@ namespace Week3_DSA
     {
         internal void ProcessCashPayment(Transaction Order)
         {
-            Order.Name = "User" + Order.OrderNumber;
+            Console.Clear();
+            Order.Name = "User" + Order.OrderNumber; //Records the name of the user
             Console.WriteLine("Total Amount: " + Order.Total + " PHP");
             Console.WriteLine("Enter the amount you're going to pay: ");
-            decimal amountPaid = decimal.Parse(Console.ReadLine());
 
+            decimal amountPaid = 0;
+            try   { 
+                    amountPaid = decimal.Parse(Console.ReadLine()); 
+                  }
+            catch { 
+                    Console.WriteLine("Invalid Input. Please Enter Numbers Only. ");
+                    Console.ReadKey();
+                    ProcessCashPayment(Order);
+                  }
+            
             if (amountPaid >= Order.Total)
             {
                 decimal changeAmount = amountPaid - Order.Total;
@@ -24,7 +34,7 @@ namespace Week3_DSA
                 record.AddNew(Order);
                 record.ShowAll();
                 DisplayReceipt receipt = new DisplayReceipt();
-                receipt.Print(Order);
+                receipt.Print(Order, amountPaid);
                 Console.ReadKey();
             }
             else

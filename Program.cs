@@ -20,7 +20,7 @@ namespace Week3_DSA
         internal void LoginScreen()
         {
             Console.Clear();
-            Console.WriteLine("Press Any Key to Order.");
+            Console.Write("Press Any Key to Order.");
             Console.ReadKey();
 
             Console.Clear();

@@ -51,6 +51,18 @@ namespace Week3_DSA
                     break;
             }
         }
+        internal int GetQuantity()
+        {
+            string quantityPrompt = "Enter the quantity: ";
+            string Space = " ";
+            int promptLeftPadding = (Console.WindowWidth - quantityPrompt.Length) / 2;
+
+            Console.SetCursorPosition(promptLeftPadding, Console.CursorTop);
+            Console.Write(quantityPrompt);
+            int quantity = int.Parse(Console.ReadLine());
+            Console.WriteLine(Space);
+            return quantity;
+        }
 
         internal void ShowPizzaMenu()
         {
@@ -65,11 +77,9 @@ namespace Week3_DSA
             
             };
             string prompt = "Enter your choice: ";
-            string quantityPrompt = "Enter the quantity: ";
+
             string anykeyContinue = "Press Any Key to Continue";
             string invalidInput = "Invalid Input. Please Enter a Number";
-            string Space = " ";
-
 
             int consoleWidth = Console.WindowWidth;
 
@@ -103,15 +113,8 @@ namespace Week3_DSA
                 ShowPizzaMenu();
 
             }
-           
 
-
-
-
-            Console.SetCursorPosition(promptLeftPadding, Console.CursorTop);
-            Console.Write(quantityPrompt);
-            int quantity = int.Parse(Console.ReadLine());
-            Console.WriteLine(Space);
+            int quantity = 0;
 
             switch (choice)
             {
@@ -119,12 +122,15 @@ namespace Week3_DSA
                     ShowMenu();
                     break;
                 case 1:
+                    quantity = GetQuantity();
                     AddToOrder("Pepperoni", quantity, 399);
                     break;
                 case 2:
+                    quantity = GetQuantity();
                     AddToOrder("Ham and Cheese", quantity, 399);
                     break;
                 case 3:
+                    quantity = GetQuantity();
                     AddToOrder("Hawaiian", quantity, 399);
                     break;
                 default:
@@ -262,6 +268,7 @@ namespace Week3_DSA
 
         internal void ConfirmOrder()
         {
+            Console.Clear();
             Console.WriteLine("Your Order:");
             Console.WriteLine("------------");
 
@@ -292,6 +299,7 @@ namespace Week3_DSA
             else
             {
                 Console.WriteLine("Invalid choice.");
+                ConfirmOrder();
             }
         }
         internal void GenerateOrderNumber() //Method to Get Order Number
