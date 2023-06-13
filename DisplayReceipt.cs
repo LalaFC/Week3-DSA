@@ -33,7 +33,7 @@ namespace Week3_DSA
             receipt = receipt.Append(" Orders: ");
             foreach (items item in Order.orders)
             {
-                receipt = receipt.Append("\t" + item.Name + "\t\t" + item.price + " PHP");
+                receipt = receipt.Append("\t" + item.Name.PadRight(25) + (item.price + " PHP").PadLeft(15));
             }
             receipt = receipt.Append("                                      ");
             receipt = receipt.Append(" Total Amount: " + Order.Total + " PHP");
@@ -61,7 +61,8 @@ namespace Week3_DSA
         }
         void ProgramLoop()
         {
-            Console.Write("Would you like to order again? ");
+            Console.Clear();
+            Console.Write("Would you like to order again? [Y/N] ");
             string choice = Console.ReadLine();
             if (choice.ToLower() == "y")
             {
@@ -74,7 +75,7 @@ namespace Week3_DSA
             }
             else
             {
-                Prompts.CenterPrompt(Prompts.invalidInput);
+                Prompts.CenterPrompt(Prompts.YesNo);
                 Prompts.ContinueKey();
                 ProgramLoop();
             }

@@ -20,7 +20,6 @@ namespace Week3_DSA
         {
             Console.Clear();
             Prompts.ContinueKey();
-            Console.ReadKey();
 
             Console.Clear();
             Menu Menu = new(); //Create new Menu instance
@@ -47,13 +46,12 @@ namespace Week3_DSA
                 {
                     Console.WriteLine("Invalid username or password. Please try again.");
                     loginAttempts++;
-                    Console.Write(3 - loginAttempts + "attempts left. Press any key to continue.");
+                    Console.Write(3 - loginAttempts + " attempts left. Press any key to continue.");
                     Console.ReadKey();
                     Console.Clear();
                 }
             }
-
-            if (loginAttempts >= 3)
+            if (loginAttempts >= 3) //If exceeded 3 wrong attempts, Exit Program
             {
                 Console.WriteLine("Login attempts exceeded. Exiting the program.");
                 return;

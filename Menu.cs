@@ -15,7 +15,8 @@ namespace Week3_DSA
 
         internal void ShowMenu()
         {
-            Console.Clear();
+            Console.Clear(); 
+            //Outputs Main Menu
             Console.WriteLine( "Welcome to the ordering system! \n" +
                                 "Please select an option \n" +
                                 "1. Pizza\n" +
@@ -23,10 +24,16 @@ namespace Week3_DSA
                                 "3. Drinks\n" +
                                 "4. Confirm Order\n" +
                                 "0. Exit\n");
-
-            Console.Write("Enter the Item NUMBER: ");
-
-            int choice = int.Parse(Console.ReadLine());
+            //Prompt for Choice
+            Console.Write("Enter the Menu NUMBER: ");
+            int choice;
+            //Choice Validation. If not parseable to int, continue validation
+            while (!int.TryParse(Console.ReadLine(), out choice))
+            {
+                Prompts.CenterPrompt(Prompts.invalidInput);
+                Prompts.ContinueKey();
+                ShowMenu();
+            }
 
             switch (choice)
             {
@@ -46,7 +53,7 @@ namespace Week3_DSA
                     ConfirmOrder();
                     break;
                 default:
-                    Prompts.CenterPrompt(Prompts.invalidInput);
+                    Prompts.CenterPrompt(Prompts.OutOfChoice);
                     Prompts.ContinueKey();
                     ShowMenu();
                     break;
@@ -58,7 +65,7 @@ namespace Week3_DSA
             {
                 Prompts.CenterPrompt(Prompts.invalidInput);
             //Clears Input Area
-                Console.SetCursorPosition(((Console.WindowWidth- Prompts.invalidInput.Length)/2), Console.CursorTop - 1);
+                Console.SetCursorPosition(((Console.WindowWidth- Prompts.invalidInput.Length)/2), Console.CursorTop - 2);
                 Prompts.CenterText("                                                                                ");
                 Console.SetCursorPosition(((Console.WindowWidth - Prompts.invalidInput.Length) / 2), Console.CursorTop - 1);
             //Prompts User Again
@@ -73,17 +80,17 @@ namespace Week3_DSA
             {
                 "Pizza Menu",
                 "",
-                "1. Pepperoni",
-                "2. Ham and Cheese",
-                "3. Hawaiian",
-                "0. Back" 
+                "1. Pepperoni           399 PHP",
+                "2. Ham and Cheese      399 PHP",
+                "3. Hawaiian            399 PHP",
+                "0. Back                       " 
             };
 
             foreach (string menuItem in menuItems)
             {
                 Prompts.CenterText(menuItem);
             }
-
+            Console.WriteLine();
             Prompts.CenterPrompt(Prompts.Choice);
 
             int choice;
@@ -115,7 +122,8 @@ namespace Week3_DSA
                     AddToOrder("Hawaiian", quantity, 399);
                     break;
                 default:
-                    Prompts.CenterPrompt(Prompts.invalidInput);
+                    Prompts.CenterPrompt(Prompts.OutOfChoice);
+                    Prompts.ContinueKey();
                     ShowPizzaMenu();
                     break;
             }
@@ -128,9 +136,9 @@ namespace Week3_DSA
                 {
                     "Dessert Menu",
                     " ",
-                    "1. Halo - Halo (45 PHP)",
-                    "2. Ice Cream (25 PHP)",
-                    "0. Back"
+                    "1. Halo - Halo     45 PHP",
+                    "2. Ice Cream       25 PHP",
+                    "0. Back                  "
                 };
 
             foreach (string menuItem in menuItems)
@@ -163,7 +171,7 @@ namespace Week3_DSA
                     AddToOrder("Ice Cream", quantity, 25);
                     break;
                 default:
-                    Prompts.CenterPrompt(Prompts.invalidInput);
+                    Prompts.CenterPrompt(Prompts.OutOfChoice);
                     ShowDessertMenu();
                     break;
             }
@@ -177,9 +185,9 @@ namespace Week3_DSA
                 {
                     "Drink Menu",
                     " ",
-                    "1. Coke (25 PHP)",
-                    "2. Sprite (25 PHP)",
-                    "0. Back"
+                    "1. Coke         25 PHP",
+                    "2. Sprite       25 PHP",
+                    "0. Back               "
                 };
 
             foreach (string menuItem in menuItems)
@@ -211,7 +219,7 @@ namespace Week3_DSA
                     AddToOrder("Sprite", quantity, 25);
                     break;
                 default:
-                    Prompts.CenterPrompt(Prompts.invalidInput);
+                    Prompts.CenterPrompt(Prompts.OutOfChoice);
                     ShowDrinkMenu();
                     break;
             }
@@ -234,7 +242,6 @@ namespace Week3_DSA
             Order.Total += (price * quantity); //Adds item price to the total amount
             Prompts.CenterText($"{quantity} {itemName}(s) added to your order.");
             Prompts.ContinueKey();
-            Console.ReadKey();
         }
 
         //method to CONFIRM ORDER
@@ -242,35 +249,56 @@ namespace Week3_DSA
         {
             Console.Clear();
             Console.WriteLine("Your Order:");
-            Console.WriteLine("------------");
+            Console.WriteLine("-------------------------------");
 
             foreach (var item in Order.orders)
             {
-                Console.WriteLine(Order.orders.IndexOf(item) + ". " + item.Name + "\t\t\t\t" + item.price + " PHP");
+                Console.WriteLine((Order.orders.IndexOf(item) + ". " + item.Name).PadRight(25) + (item.price + " PHP").PadLeft(15));
             }
-
-            Console.WriteLine("------------");
+            Console.WriteLine(("Total:").PadRight(25) + (Order.Total + " PHP").PadLeft(15));
+            Console.WriteLine("-------------------------------");
+            Console.WriteLine("0: Back");
             Console.WriteLine("Would you like to remove any items from the order? (Y/N)");
 
             string choice = Console.ReadLine();
             if (choice.ToLower() == "y")
             {
-                Console.WriteLine("Enter the NUMBER of the item you want to remove: ");
-                int itemNum = int.Parse(Console.ReadLine());
-
-                Order.orders.RemoveAt(itemNum);
-                Console.WriteLine("Order Deleted.");
-                ConfirmOrder();
-
+                Console.Write("Enter the NUMBER of the item you want to remove: ");
+                int itemNum;
+                //Input Validation for Item Number to remove
+                while (!int.TryParse(Console.ReadLine(), out itemNum))
+                {
+                    Console.Write(Prompts.invalidInput);
+                    Prompts.ContinueKey();
+                    ConfirmOrder();
+                }
+                //Checks if Number is within the Number of orders
+                if (itemNum < Order.orders.Count) 
+                {
+                    Order.orders.RemoveAt(itemNum);
+                    Console.WriteLine("Order Deleted.\t\t\t");
+                    Prompts.ContinueKey();
+                    ConfirmOrder();
+                }
+                else if (itemNum >= Order.orders.Count)
+                {
+                    Prompts.CenterPrompt(Prompts.OutOfChoice);
+                    Prompts.ContinueKey();
+                    ConfirmOrder();
+                }
             }
             else if (choice.ToLower() == "n")
             {
                 GenerateOrderNumber();
                 Payment.ProcessCashPayment(Order);
             }
+            else if (choice == "0")
+            {
+                ShowMenu();
+            }    
             else
             {
-                Prompts.CenterPrompt(Prompts.invalidInput);
+                Prompts.CenterPrompt(Prompts.YesNo);
                 Prompts.ContinueKey();
                 ConfirmOrder();
             }
